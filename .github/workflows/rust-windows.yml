@@ -1,0 +1,31 @@
+name: Rust
+
+on:
+  push:
+    tags:
+      - "*.*.*"
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install Rustup using win.rustup.rs
+      run: |
+        # Disable the download progress bar which can cause perf issues
+        $ProgressPreference = "SilentlyContinue"
+        Invoke-WebRequest https://win.rustup.rs/ -OutFile rustup-init.exe
+        .\rustup-init.exe -y --default-host=x86_64-pc-windows-msvc --default-toolchain=none
+        del rustup-init.exe
+      shell: powershell
+    - name: Build
+      run: cargo build --target x86_64-pc-windows-msvc --release --verbose
+    - name: Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: target/x86_64-pc-windows-msvc/release/cohost-static.exe
