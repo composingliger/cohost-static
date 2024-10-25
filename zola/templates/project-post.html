@@ -1,0 +1,8 @@
+{% extends "project.html" %}
+
+{% block page_main %}
+<main style="display: flex; flex-direction: column; margin-top: 1rem; gap: 1rem">
+    {% set post = page %}
+    {% include "_post.html" %}
+</main>
+{% endblock main %}

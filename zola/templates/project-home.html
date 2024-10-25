@@ -1,0 +1,18 @@
+{% extends "project.html" %}
+
+{% block page_main %}
+<main style="display: flex; flex-direction: column; margin-top: 1rem; gap: 1rem">
+    {% for post in paginator.pages %}
+    {% include "_post.html" %}
+    {% endfor %}
+</main>
+
+<nav class="pagination" style="display: flex; flex-direction: row; margin-top: 1rem; gap: 1rem; justify-content: right">
+    {% if paginator.previous %}
+    <a class="previous" href="{{ paginator.previous }}">‹ Previous</a>
+    {% endif %}
+    {% if paginator.next %}
+    <a class="next" href="{{ paginator.next }}">Next ›</a>
+    {% endif %}
+</nav>
+{% endblock %}

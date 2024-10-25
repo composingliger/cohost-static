@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block page_main %}
+<main style="margin-top: 1rem;">
+    <h1>Posts tagged #{{ term.name }}</h1>
+
+    <ul>
+    {% for page in term.pages %}
+        <li><a href="{{ page.permalink }}">{%if page.title %}{{ page.title }}{% else %}Untitled{% endif %}</a></li>
+    {% endfor %}
+    </ul>
+</main>
+
+<nav style="margin-top: 1rem">
+    <a href="{{ get_taxonomy(kind='tags') | get(key='permalink') }}">Browse all tags</a>
+</nav>
+{% endblock %}

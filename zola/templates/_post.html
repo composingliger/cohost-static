@@ -1,0 +1,17 @@
+<article class="co-post">
+    <header>
+        <img class="avatar mask-{{ project.extra.avatar_shape }}" src="{{ project.extra.avatar_url }}">
+        <strong><a href="{{ project.permalink }}" rel="author">{{ project.extra.display_name }}</a></strong>
+        <a href="{{ project.permalink }}">@{{ project.extra.handle }}</a>
+        <time datetime="{{ post.date }}"><a rel="bookmark" href="{{ post.path }}">{{ post.date | date(format="%Y-%m-%d %H:%M UTC") }}</a></time>
+    </header>
+    {% if post.title %}
+    <h1><a href="{{ post.path }}">{{ post.title }}</a></h1>
+    {% endif %}
+    <div class="content">{{ post.content | safe }}</div>
+    <footer>
+        {% for tag in post.taxonomies | get(key="tags", default=[]) %}
+        <a href="{{ get_taxonomy_url(kind='tags', name=tag) }}">#{{ tag }}</a>
+        {% endfor %}
+    </footer>
+</article>

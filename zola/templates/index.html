@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block globals %}
+    {% set title = "Not cohost - Archive" %}
+{% endblock globals %}
+
+{% block page_main %}
+<nav style="margin-top: 1rem;">
+    <h1 class="title">Not cohost Archive</h1>
+    <ul>
+        <li><a href="{{ get_url(path='@/liglig/_index.md') }}">@liglig</a></li>
+        <li><a href="{{ get_url(path='@/liglikes/_index.md') }}">@liglikes</a></li>
+        <li><a href="{{ get_url(path='@/monsterkissingbooth/_index.md') }}">@monsterkissingbooth</a></li>
+    </ul>
+</nav>
+{% endblock %}

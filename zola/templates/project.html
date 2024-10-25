@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block globals %}
+    {% if section %}
+    {% set this = section %}
+    {% elif page %}
+    {% set this = page %}
+    {% endif %}
+
+    {% set handle = this.components[0] %}
+    {% set project = get_section(path=handle ~ "/_index.md") %}
+
+    {% if this.title %}
+    {% set title = "Not cohost (@" ~ project.extra.handle ~ ") - " ~ this.title %}
+    {% else %}
+    {% set title = "Not cohost (@" ~ project.extra.handle ~ ")" %}
+    {% endif %}
+{% endblock %}
+
+{% block header_extras %}
+    {% if title %}
+    <meta property="og:title" content="{{ title }}" />
+    {% if this.description %}<meta property="og:description" content="{{ this.description }}" />{% endif %}
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ this.permalink }}" />
+    {% if this.extra.preview_image %}<meta property="og:image" content="{{ get_url(path=this.extra.preview_image) }}" />{% endif %}
+    {% if this.date %}<meta property="og:updated_time" content="{{ this.date }}" />{% endif %}
+    <meta name="twitter:card" content="summary_large_image"/>
+    {% if this.extra.preview_image %}<meta name="twitter:image" content="{{ get_url(path=this.extra.preview_image) }}" />{% endif %}
+    <meta name="twitter:title" content="{{ title }}"/>
+    {% if this.description %}<meta name="twitter:description" content="{{ this.description }}"/>{% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block page_header %}
+    {% if project.extra.header_url -%}
+    <div class="header" style="background-image: url({{ project.extra.header_url }});"></div>
+    {%- else -%}
+    <div class="header"></div>
+    {%- endif %}
+{% endblock %}
+
+{% block page_left %}
+    <div class="co-profile">
+        <div style="position: relative; height: 4.5rem;">
+            <img class="avatar mask-{{ project.extra.avatar_shape }}" src="{{ project.extra.avatar_url }}" alt="{{ project.extra.handle }}">
+        </div>
+        <h1>{{ project.extra.display_name }}</h1>
+        <div><a href="{{ project.permalink }}">@{{ project.extra.handle }}</a></div>
+        <div>{{ project.extra.dek }}</div>
+        <div style="display: flex; flex-direction: row; gap: 1rem; justify-content: center">
+            <div>👤&nbsp;{{ project.extra.pronouns }}</div>
+            <div>🔗&nbsp;<a href="{{ project.extra.url }}">{{ project.extra.url_short }}</a></div>
+        </div>
+        <div>{{ project.extra.description | markdown(inline=true) | safe }}</div>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,29 @@
+{%- block globals -%}
+    {# Set any global variables here #}
+{%- endblock -%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% if title %}{{ title }}{% endif %}</title>
+    <style>
+        @import url(https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap);
+        @import url(/static/style.css);
+    </style>
+    {% block head_extras %}{% endblock %}
+</head>
+<body>
+<div class="co-banner">
+    <div style="width: var(--page-width); margin-left: auto; margin-right: auto; font-size: 2rem">Not co<strong>host</strong></div>
+</div>
+<div class="co-page">
+    {% block page_header %}{% endblock %}
+    <div class="content">
+        <div class="left">{% block page_left %}{% endblock %}</div>
+        <div class="main" style="grid-column: span 2;">{% block page_main %}{% endblock %}</div>
+        <div class="right">{% block page_right %}{% endblock %}</div>
+    </div>
+    {% block page_footer %}{% endblock %}
+</div>
+</body>
+</html>
